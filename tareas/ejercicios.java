@@ -20,7 +20,7 @@ public class ejercicios {
 
     }
 
-    static void pregunta(){
+    static void pregunta2(){
         //Pregunta 4.2
         char hamburguesas;
         String hamburguesasNcomp="";
@@ -88,9 +88,9 @@ public class ejercicios {
         int monto=0;
         int porcentaje=0;
         double total=0;
-        System.out.println("Cual es el monto que pago");
+        System.out.println("Cuantas compra iso:");
         monto=teclado.nextInt();
-
+        
         if (monto>=200){
             porcentaje=((monto*15)/100);
             total=monto-porcentaje;
@@ -214,8 +214,21 @@ public class ejercicios {
         System.out.println("El monto a pagar es de " +total);
     }
 
+    static void pregunta12(){
+        int depoci=0;
+        int meses=0;
+        double total=0;
+        System.out.println("Cuanto depocita cada mes:");
+        depoci=teclado.nextInt();
+        System.out.println("Cuantos meses depocito:");
+        meses=teclado.nextInt();
+
+        total=depoci*(Math.pow((1.10),meses));
+        System.out.println("El total que ahorro es:" +total);
+    }
+
     public static void main(String[] args) {
-        pregunta11();
+        pregunta12();
         
     }
     
