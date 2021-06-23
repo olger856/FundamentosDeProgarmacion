@@ -1,6 +1,8 @@
 package pe.edu.upeu.oihc;
 
 import java.util.Scanner;
+import pe.edu.upeu.oihc.examen.ResolucionExamen;
+
 
 /**
  * Hello world!
@@ -13,6 +15,7 @@ public class App
         
     }
     static Scanner teclado=new Scanner(System.in);
+    ResolucionExamen rep=new ResolucionExamen();
         public static void menuMain(){
             String mensaje="Seleccion el algoritmo que desea ejecutar:"+
             "\n1=problema1"+
