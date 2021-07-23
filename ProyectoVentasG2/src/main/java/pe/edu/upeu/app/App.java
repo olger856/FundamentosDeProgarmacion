@@ -12,6 +12,11 @@ import pe.edu.upeu.modelo.ProductoTO;
 import pe.edu.upeu.util.LeerTeclado;
 import pe.edu.upeu.util.UtilsX;
 
+import org.apache.logging.log4j.core.pattern.AnsiConverter;
+import org.fusesource.jansi.Ansi;
+import org.fusesource.jansi.AnsiConsole;
+import static org.fusesource.jansi.Ansi.*;
+import static org.fusesource.jansi.Ansi.Color.*;
 /**
  * Hello world!
  *
@@ -31,15 +36,15 @@ public class App {
         "\n21=Reportar Producto"+
         "\n22=Modificar Producto"+
         "\n3=Realizar Venta"+
+        "\n31=Reporte de Venta en Rango de Fechas"+
         "\n4=Registrar Usuario"+
-        "\n5=Registrar Venta"+
         "\n0=Salir del programa";
         LeerTeclado lt=new LeerTeclado(); 
         UtilsX ut=new UtilsX();
         CategoriaDao daoC;       
         UsuarioDao daoUso;
-        ProductoDao daoPro;
-        VentaDao vDao;
+        ProductoDao proDao;
+        VentaDao venDao;
         int opcion=0;
         opcion=lt.leer(0, mensaje);
         do{            
@@ -50,17 +55,21 @@ public class App {
                 case 12: 
                 ut.clearConsole();
                 daoC=new CategoriaDao(); daoC.reporteCategoria(); break;    
-                case 2: ut.clearConsole(); daoPro=new ProductoDao(); daoPro.crearProducto(); break;
-                case 21: daoPro=new ProductoDao(); daoPro.reportarProducto(); break;
-                case 3: break;
+                case 2: proDao=new ProductoDao(); proDao.crearProducto(); break;
+                case 21: proDao=new ProductoDao(); proDao.reporteProducto(); break;
+                case 3: venDao=new VentaDao(); venDao.registroVentaGeneral(); break;
+                case 31: venDao=new VentaDao(); venDao.reporteVentasRangoFecha(); break;
                 case 4: daoUso=new UsuarioDao(); daoUso.crearNuevoUsuario(); break;
-                case 5: vDao=new VentaDao(); vDao.registroVenta(); break;
+                case 5: break;
                 default: System.out.println("La opcion que eligio no exuiste!");
                 break;
             }
             if(opcion!=0){
-                System.out.println("\nDesea seguir probando: ");
-                opcion=lt.leer(0, mensaje);
+                if(lt.leer("", "\nDesea seguir probando SI=S/NO=N:").toUpperCase().charAt(0)=='S'){
+                    opcion=lt.leer(0, mensaje);
+                }else{
+                    opcion=0;
+                }                
             }
             
         }while(opcion!=0);        
@@ -81,7 +90,13 @@ public class App {
         }
     }
 
+
     public static void main( String[] args ){
+        AnsiConsole.systemInstall();
+        Ansi colorX=new AnsiConverter();
+        System.out.println(colorX.bgBrightGreen().fgBlue().a("***************Ingreso al Sistema***********").reset());
+        //AnsiConsole.systemInstall();
+        //System.out.println(colorX.render("@|red Hello|@ gggg @|green World|@") );
         validarAcceso();       
         //menuMain(); 
         //new MainGUI();
